@@ -11,23 +11,27 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout [test-prod]
+              if: contains(github.repository, 'test-prod')
               uses: actions/checkout@v4
               with:
                 repository: 'matikin9/test-prod'
                 ref: 'dev'
                 path: 'test-prod'
             - name: Checkout [test-dev]
+              if: contains(github.repository, 'test-prod')
               uses: actions/checkout@v4
               with:
                 repository: 'matikin9/test-dev'
                 ref: 'dev'
                 path: 'test-dev'
             - name: 'Copy files'
+              if: contains(github.repository, 'test-prod')
               run: |
                   echo "Publishing to Dev"
                   cp -r test-prod/* test-dev/
                   cd test-dev
             - name: 'Commit and push changes'
+              if: contains(github.repository, 'test-prod')
               uses: stefanzweifel/git-auto-commit-action@v4
               with:
                 commit_message: '[Auto] Publish to Dev'
