@@ -34,8 +34,10 @@ jobs:
                   git status
             - name: 'Commit and push changes'
               if: contains(github.repository, 'test-prod')
-              uses: stefanzweifel/git-auto-commit-action@v4
+              uses: EndBug/add-and-commit@v7
               with:
-                commit_message: '[Auto] Publish to Dev'
+                  message: Auto publish to Dev
+                  committer_name: GitHub Actions
+                  committer_email: actions@github.com
             
             
