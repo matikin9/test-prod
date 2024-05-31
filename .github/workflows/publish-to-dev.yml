@@ -1,6 +1,7 @@
 name: Publish to Dev
 
 on:
+    workflow_dispatch:
     push:
         branches:
             - dev
@@ -12,13 +13,13 @@ jobs:
             - name: Checkout [test-prod]
               uses: actions/checkout@v4
               with:
-                repository: 'test-prod'
+                repository: 'matikin9/test-prod'
                 ref: 'dev'
                 path: 'test-prod'
             - name: Checkout [test-dev]
               uses: actions/checkout@v4
               with:
-                repository: 'test-dev'
+                repository: 'matikin9/test-dev'
                 ref: 'dev'
                 path: 'test-dev'
             - name: 'Publish to Dev'
