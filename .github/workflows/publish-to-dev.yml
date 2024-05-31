@@ -1,0 +1,33 @@
+name: Publish to Dev
+
+on:
+    push:
+        branches:
+            - dev
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout [test-prod]
+              uses: actions/checkout@v4
+              with:
+                repository: 'test-prod'
+                ref: 'dev'
+                path: 'test-prod'
+            - name: Checkout [test-dev]
+              uses: actions/checkout@v4
+              with:
+                repository: 'test-dev'
+                ref: 'dev'
+                path: 'test-dev'
+            - name: 'Publish to Dev'
+              run: |
+                  echo "Publishing to Dev"
+                  cp -r test-prod/* test-dev/
+                  cd test-dev
+                  git add .
+                  git commit -m "Publishing to Dev"
+                  git push
+            
+            
